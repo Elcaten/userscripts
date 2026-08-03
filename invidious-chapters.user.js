@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Invidious Chapters
 // @namespace    https://github.com/Elcaten/userscripts
-// @version      0.2.0
+// @version      0.2.2
 // @description  Adds a Chapters button to Invidious videos.
 // @author       Elcaten
 // @match        https://example.invalid/*
@@ -79,6 +79,14 @@
         display: none;
       }
 
+      .video-js .vjs-chapters-button svg {
+        display: block;
+        width: 2em;
+        height: 2em;
+        margin: auto;
+        fill: currentColor;
+      }
+
       .invidious-chapters-heading {
         padding: 12px 16px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.14);
@@ -91,7 +99,7 @@
         overscroll-behavior: contain;
       }
 
-      .invidious-chapters-row {
+      .video-js .invidious-chapters-row {
         display: flex;
         width: 100%;
         gap: 16px;
@@ -123,6 +131,8 @@
       }
 
       .invidious-chapters-title {
+        flex: 1;
+        min-width: 0;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -227,13 +237,15 @@
     const button = document.createElement("button");
     button.type = "button";
     button.className = "vjs-chapters-button vjs-control vjs-button";
-    button.textContent = "Chapters";
+    button.innerHTML = `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 5h3v3H4V5zm5 0h11v3H9V5zM4 10.5h3v3H4v-3zm5 0h11v3H9v-3zM4 16h3v3H4v-3zm5 0h11v3H9v-3z" />
+      </svg>
+    `;
     button.title = "Chapters";
     button.setAttribute("aria-label", "Chapters");
     button.setAttribute("aria-controls", popup.id);
     button.setAttribute("aria-expanded", "false");
-    button.style.width = "auto";
-    button.style.padding = "0 0.75em";
 
     const setPopupOpen = (open) => {
       popup.hidden = !open;
