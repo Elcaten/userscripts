@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Invidious Chapters
 // @namespace    https://github.com/Elcaten/userscripts
-// @version      0.1.0
+// @version      0.1.1
 // @description  Adds a Chapters button to Invidious videos.
 // @author       Elcaten
-// @match        *://*/watch*
+// @match        https://example.invalid/*
 // @downloadURL  https://raw.githubusercontent.com/Elcaten/userscripts/refs/heads/main/invidious-chapters.user.js
 // @updateURL    https://raw.githubusercontent.com/Elcaten/userscripts/refs/heads/main/invidious-chapters.user.js
 // @grant        none
@@ -12,6 +12,8 @@
 
 (function () {
   "use strict";
+
+  if (location.pathname !== "/watch") return;
 
   const video = document.querySelector("video");
   if (!video) return;
